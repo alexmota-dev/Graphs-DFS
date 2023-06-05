@@ -29,20 +29,6 @@ class Graph:
             self.graph_list[src].append(dest)
             self.graph_matrix[src][dest] = 1
  
-    # function to print adj list
-    def print_graph_list(self):
-        print("Adjacency List Representation:")
-        for i in range(self.v):
-            print(i, "-->", *self.graph_list[i])
-        print()
- 
-    # function to print adj matrix
-    def print_graph_matrix(self):
-        print("Adjacency Matrix Representation:")
-        for i in self.graph_matrix:
-            print(i)
-        print()
- 
     # function the get number of edges
     def number_of_edges(self):
         return self.e
@@ -95,6 +81,4 @@ if __name__ == "__main__":
     n = 10
     g = Graph(n)
     g.create_random_graph()
-    g.print_graph_list()
-    g.print_graph_matrix()
     g.dfs()
