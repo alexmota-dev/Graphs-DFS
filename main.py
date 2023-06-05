@@ -30,21 +30,23 @@ def DFS_visit(G, vertice):
     vertice.color = "BLACK"
     G.tempo = G.tempo + 1
     vertice.f = G.tempo
-    j = 0
-    for existe in vertice.vizinhos:
-        if existe == 1:
-            vizinho = G.vertices[j]
-            if vertice == vizinho.pai:
-                print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
-            if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
-                print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
-                print("O pai de ", vizinho.nome , " e ", vizinho.pai.nome)
-            if vertice.d > vizinho.d and vertice.f < vizinho.f:
-                print('Aresta de Retorno:', vertice.nome ,'-->',vizinho.nome)
-            else:
-                print('Aresta de Cruzamento:', vertice.nome ,'-->',vizinho.nome)
-
-        j=j+1
+    # j = 0
+    # for existe in vertice.vizinhos:
+    #     if existe == 1:
+    #         vizinho = G.vertices[j]
+    #         if vertice == vizinho.pai:
+    #             print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
+    #         if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
+    #             print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
+    #             print("O pai de ", vizinho.nome , " e ", vizinho.pai.nome)
+    #         elif vertice != vizinho.pai and not (vertice.d < vizinho.d and vertice.f > vizinho.f):
+    #             if vertice.d > vizinho.d and vertice.f < vizinho.f:
+    #                 print('Aresta de Retorno:', vertice.nome ,'-->',vizinho.nome)
+    #             else:
+    #                 print('Aresta de Cruzamento:', vertice.nome ,'-->',vizinho.nome)
+    #                 print(vertice.nome, vertice.d, vertice.f)
+    #                 print(vizinho.nome, vizinho.d, vizinho.f)
+    #     j=j+1
     
 def DFS(G):
     for vertice in G.vertices:
@@ -54,6 +56,22 @@ def DFS(G):
     for vertice in G.vertices:
         if vertice.color == "WHITE":
             DFS_visit(G, vertice)
+
+    for vertice in G.vertices:
+        j = 0
+        for existe in vertice.vizinhos:
+            if existe == 1:
+                vizinho = G.vertices[j]
+                if vertice == vizinho.pai:
+                    print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
+                if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
+                    print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
+                elif vertice != vizinho.pai and not (vertice.d < vizinho.d and vertice.f > vizinho.f):
+                    if vertice.d > vizinho.d and vertice.f < vizinho.f:
+                        print('Aresta de Retorno:', vertice.nome ,'-->',vizinho.nome)
+                    else:
+                        print('Aresta de Cruzamento:', vertice.nome ,'-->',vizinho.nome)
+            j=j+1
 
 def imprimirMatriz(matriz):
     for x in matriz:
