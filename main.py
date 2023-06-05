@@ -4,40 +4,37 @@ import random
  
 class Graph:
     def __init__(self, v):
-        self.time = 0
+        self.tempo = 0
         self.traversal_array = []
         self.v = v
-        # e is the number of edge (randomly chosen between 9 to 45)
-        self.e = random.randint(9, 45)
-        # adj. list for graph
-        self.graph_list = [[] for _ in range(v)]
-        # adj. matrix for graph
-        self.graph_matrix = [[0 for _ in range(v)] for _ in range(v)]
+        # numero de arestas
+        # self.e = random.randint((self.v-1), 45)
+        self.e = 9
+        # list de adjacencia
+        self.grafo_lista = [[] for _ in range(v)]
+        # matrix de adjacencia
+        self.grafo_matrix = [[0 for _ in range(v)] for _ in range(v)]
  
     # function to create random graph
     def create_random_graph(self):
-        # add edges upto e
+        # adicionar arestas até e
         for i in range(self.e):
             # choose src and dest of each edge randomly
             src = random.randrange(0, self.v)
             dest = random.randrange(0, self.v)
             # re-choose if src and dest are same or src and dest already has an edge
-            while src == dest and self.graph_matrix[src][dest] == 1:
+            while src == dest and self.grafo_matrix[src][dest] == 1:
                 src = random.randrange(0, self.v)
                 dest = random.randrange(0, self.v)
             # add the edge to graph
-            self.graph_list[src].append(dest)
-            self.graph_matrix[src][dest] = 1
- 
-    # function the get number of edges
-    def number_of_edges(self):
-        return self.e
+            self.grafo_lista[src].append(dest)
+            self.grafo_matrix[src][dest] = 1
  
     # function for dfs
     def dfs(self):
         self.visited = [False]*self.v
-        self.start_time = [0]*self.v
-        self.end_time = [0]*self.v
+        self.d = [0]*self.v
+        self.f = [0]*self.v
  
         for node in range(self.v):
             if not self.visited[node]:
@@ -52,11 +49,11 @@ class Graph:
         # add the node to traversal
         self.traversal_array.append(node)
         # get the starting time
-        self.start_time[node] = self.time
+        self.d[node] = self.tempo
         # increment the time by 1
-        self.time += 1
+        self.tempo += 1
         # traverse through the neighbours
-        for neighbour in self.graph_list[node]:
+        for neighbour in self.grafo_lista[node]:
             # if a node is not visited
             if not self.visited[neighbour]:
                 # marks the edge as tree edge
@@ -65,20 +62,20 @@ class Graph:
                 self.traverse_dfs(neighbour)
             else:
                 # when the parent node is traversed after the neighbour node
-                if self.start_time[node] > self.start_time[neighbour] and self.end_time[node] < self.end_time[neighbour]:
+                if self.d[node] > self.d[neighbour] and self.f[node] < self.f[neighbour]:
                     print('Back Edge:', str(node)+'-->'+str(neighbour))
                 # when the neighbour node is a descendant but not a part of tree
-                elif self.start_time[node] < self.start_time[neighbour] and self.end_time[node] > self.end_time[neighbour]:
+                elif self.d[node] < self.d[neighbour] and self.f[node] > self.f[neighbour]:
                     print('Forward Edge:', str(node)+'-->'+str(neighbour))
                 # when parent and neighbour node do not have any ancestor and a descendant relationship between them
-                elif self.start_time[node] > self.start_time[neighbour] and self.end_time[node] > self.end_time[neighbour]:
+                elif self.d[node] > self.d[neighbour] and self.f[node] > self.f[neighbour]:
                     print('Cross Edge:', str(node)+'-->'+str(neighbour))
-            self.end_time[node] = self.time
-            self.time += 1
+            self.f[node] = self.tempo
+            self.tempo += 1
  
  
 if __name__ == "__main__":
-    n = 10
+    n = 5
     g = Graph(n)
     g.create_random_graph()
     g.dfs()
