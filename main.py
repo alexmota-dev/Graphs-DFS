@@ -8,8 +8,8 @@ class Grafo:
 
 class Vertice:
     def __init__(self, nome, vizinhos):
-        self.d = None
-        self.f = None
+        self.d = 0
+        self.f = 0
         self.color = None
         self.pai = None
         self.nome = nome
@@ -30,6 +30,21 @@ def DFS_visit(G, vertice):
     vertice.color = "BLACK"
     G.tempo = G.tempo + 1
     vertice.f = G.tempo
+    j = 0
+    for existe in vertice.vizinhos:
+        if existe == 1:
+            vizinho = G.vertices[j]
+            if vertice == vizinho.pai:
+                print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
+            if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
+                print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
+                print("O pai de ", vizinho.nome , " e ", vizinho.pai.nome)
+            if vertice.d > vizinho.d and vertice.f < vizinho.f:
+                print('Aresta de Retorno:', vertice.nome ,'-->',vizinho.nome)
+            else:
+                print('Aresta de Cruzamento:', vertice.nome ,'-->',vizinho.nome)
+
+        j=j+1
     
 def DFS(G):
     for vertice in G.vertices:
@@ -51,24 +66,24 @@ def imprimirMatriz(matriz):
 if __name__ == "__main__":
     n = 4
     # Exemplo Site IME
-    # v0 = Vertice(0, [0,0,0,0,0,1,0,1])
-    # v1 = Vertice(1, [0,0,0,0,0,1,0,0])
-    # v2 = Vertice(2, [0,1,0,0,0,0,0,0])
-    # v3 = Vertice(3, [0,0,0,0,1,0,1,0])
-    # v4 = Vertice(3, [1,0,0,0,0,0,0,1])
-    # v5 = Vertice(3, [0,0,1,0,0,0,0,1])
-    # v6 = Vertice(3, [0,0,0,1,1,0,0,0])
-    # v7 = Vertice(3, [1,0,0,0,0,0,0,0])
+    v0 = Vertice(0, [0,0,0,0,0,1,0,1])
+    v1 = Vertice(1, [0,0,0,0,0,1,0,0])
+    v2 = Vertice(2, [0,1,0,0,0,0,0,0])
+    v3 = Vertice(3, [0,0,0,0,1,0,1,0])
+    v4 = Vertice(4, [1,0,0,0,0,0,0,1])
+    v5 = Vertice(5, [0,0,1,0,0,0,0,1])
+    v6 = Vertice(6, [0,0,0,1,1,0,0,0])
+    v7 = Vertice(7, [0,1,0,0,0,0,0,0])
 
     # Exemplo Rennan
-    v0 = Vertice("u", [0,1,0,1,0,0])
-    v1 = Vertice("v", [0,0,0,0,1,0])
-    v2 = Vertice("w", [0,0,0,0,1,1])
-    v3 = Vertice("x", [0,1,0,0,0,0])
-    v4 = Vertice("y", [0,0,0,1,0,0])
-    v5 = Vertice("z", [0,0,0,0,0,1])
+    # v0 = Vertice("u", [0,1,0,1,0,0])
+    # v1 = Vertice("v", [0,0,0,0,1,0])
+    # v2 = Vertice("w", [0,0,0,0,1,1])
+    # v3 = Vertice("x", [0,1,0,0,0,0])
+    # v4 = Vertice("y", [0,0,0,1,0,0])
+    # v5 = Vertice("z", [0,0,0,0,0,1])
 
-    g = Grafo([v0,v1,v2,v3,v4,v5])
+    g = Grafo([v0,v1,v2,v3,v4,v5,v6,v7])
     DFS(g)
 
     print(v0.d)
