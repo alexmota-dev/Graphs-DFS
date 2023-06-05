@@ -30,23 +30,6 @@ def DFS_visit(G, vertice):
     vertice.color = "BLACK"
     G.tempo = G.tempo + 1
     vertice.f = G.tempo
-    # j = 0
-    # for existe in vertice.vizinhos:
-    #     if existe == 1:
-    #         vizinho = G.vertices[j]
-    #         if vertice == vizinho.pai:
-    #             print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
-    #         if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
-    #             print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
-    #             print("O pai de ", vizinho.nome , " e ", vizinho.pai.nome)
-    #         elif vertice != vizinho.pai and not (vertice.d < vizinho.d and vertice.f > vizinho.f):
-    #             if vertice.d > vizinho.d and vertice.f < vizinho.f:
-    #                 print('Aresta de Retorno:', vertice.nome ,'-->',vizinho.nome)
-    #             else:
-    #                 print('Aresta de Cruzamento:', vertice.nome ,'-->',vizinho.nome)
-    #                 print(vertice.nome, vertice.d, vertice.f)
-    #                 print(vizinho.nome, vizinho.d, vizinho.f)
-    #     j=j+1
     
 def DFS(G):
     for vertice in G.vertices:
@@ -93,20 +76,6 @@ if __name__ == "__main__":
     v6 = Vertice(6, [0,0,0,1,1,0,0,0])
     v7 = Vertice(7, [0,1,0,0,0,0,0,0])
 
-    # Exemplo Rennan
-    # v0 = Vertice("u", [0,1,0,1,0,0])
-    # v1 = Vertice("v", [0,0,0,0,1,0])
-    # v2 = Vertice("w", [0,0,0,0,1,1])
-    # v3 = Vertice("x", [0,1,0,0,0,0])
-    # v4 = Vertice("y", [0,0,0,1,0,0])
-    # v5 = Vertice("z", [0,0,0,0,0,1])
-
     g = Grafo([v0,v1,v2,v3,v4,v5,v6,v7])
     DFS(g)
-
-    print(v0.d)
-    print(v0.f)
-
-
-    # imprimirMatriz(g.vertices)
     
