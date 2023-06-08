@@ -1,4 +1,3 @@
-import random
 
 class Grafo:
     def __init__(self, vertices):
@@ -39,6 +38,19 @@ def DFS(G):
         if vertice.color == "WHITE":
             DFS_visit(G, vertice)
 
+    # grafoEDirecionado = True
+
+    # for vertice in G.vertices:
+    #     j=0
+    #     const = []
+    #     for existe in vertice.vizinhos:
+    #         if existe == 1:
+    #             vizinho = G.vertices[j]
+    #             if vizinho.vizinhos[vertice.nome] == 1:
+    #                 continue
+    #             else:
+    #                 grafoEDirecionado = False
+                    
     for vertice in G.vertices:
         j = 0
         for existe in vertice.vizinhos:
@@ -46,6 +58,7 @@ def DFS(G):
                 vizinho = G.vertices[j]
                 if vertice == vizinho.pai:
                     print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
+                # if(grafoEDirecionado):
                 if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
                     print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
                 elif vertice != vizinho.pai and not (vertice.d < vizinho.d and vertice.f > vizinho.f):
@@ -64,6 +77,7 @@ def imprimirMatriz(matriz):
 
 if __name__ == "__main__":
     n = 4
+
     # Exemplo Site IME
     v0 = Vertice(0, [0,0,0,0,0,1,0,1])
     v1 = Vertice(1, [0,0,0,0,0,1,0,0])
@@ -73,6 +87,18 @@ if __name__ == "__main__":
     v5 = Vertice(5, [0,0,1,0,0,0,0,1])
     v6 = Vertice(6, [0,0,0,1,1,0,0,0])
     v7 = Vertice(7, [0,1,0,0,0,0,0,0])
+
+    # FONTE
+    # Imagem ->    https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/figs/coelho-2011/coelho-aula06-arcos-dfs.png
+    # Conteudo -> https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/dfs-forest.html
+    
+    #GRAFO NÃO DIRECIONADO
+    # v0 = Vertice(0, [0,1,0,0,0,1])
+    # v1 = Vertice(1, [1,0,1,0,0,1])
+    # v2 = Vertice(2, [0,1,0,1,0,0])
+    # v3 = Vertice(3, [0,0,1,0,1,0])
+    # v4 = Vertice(4, [0,0,0,1,0,0])
+    # v5 = Vertice(5, [1,1,0,0,0,0])
 
     g = Grafo([v0,v1,v2,v3,v4,v5,v6,v7])
     DFS(g)
