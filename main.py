@@ -1,4 +1,3 @@
-import random
 
 class Grafo:
     def __init__(self, vertices):
@@ -39,6 +38,19 @@ def DFS(G):
         if vertice.color == "WHITE":
             DFS_visit(G, vertice)
 
+    # grafoEDirecionado = True
+
+    # for vertice in G.vertices:
+    #     j=0
+    #     const = []
+    #     for existe in vertice.vizinhos:
+    #         if existe == 1:
+    #             vizinho = G.vertices[j]
+    #             if vizinho.vizinhos[vertice.nome] == 1:
+    #                 continue
+    #             else:
+    #                 grafoEDirecionado = False
+                    
     for vertice in G.vertices:
         j = 0
         for existe in vertice.vizinhos:
@@ -46,6 +58,7 @@ def DFS(G):
                 vizinho = G.vertices[j]
                 if vertice == vizinho.pai:
                     print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
+                # if(grafoEDirecionado):
                 if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
                     print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
                 elif vertice != vizinho.pai and not (vertice.d < vizinho.d and vertice.f > vizinho.f):
