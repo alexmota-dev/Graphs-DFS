@@ -64,6 +64,7 @@ def imprimirMatriz(matriz):
 
 if __name__ == "__main__":
     n = 4
+
     # Exemplo Site IME
     v0 = Vertice(0, [0,0,0,0,0,1,0,1])
     v1 = Vertice(1, [0,0,0,0,0,1,0,0])
@@ -73,6 +74,18 @@ if __name__ == "__main__":
     v5 = Vertice(5, [0,0,1,0,0,0,0,1])
     v6 = Vertice(6, [0,0,0,1,1,0,0,0])
     v7 = Vertice(7, [0,1,0,0,0,0,0,0])
+
+    # FONTE
+    # Imagem ->    https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/figs/coelho-2011/coelho-aula06-arcos-dfs.png
+    # Conteudo -> https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/dfs-forest.html
+    
+    #GRAFO NÃO DIRECIONADO
+    # v0 = Vertice(0, [0,1,0,0,0,1])
+    # v1 = Vertice(1, [1,0,1,0,0,1])
+    # v2 = Vertice(2, [0,1,0,1,0,0])
+    # v3 = Vertice(3, [0,0,1,0,1,0])
+    # v4 = Vertice(4, [0,0,0,1,0,0])
+    # v5 = Vertice(5, [1,1,0,0,0,0])
 
     g = Grafo([v0,v1,v2,v3,v4,v5,v6,v7])
     DFS(g)
