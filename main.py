@@ -1,5 +1,12 @@
 import random
 
+class Aresta:
+    def __init__(self,v1,v2,existeCaminhoDeV1aV2):
+        self.v1 = v1
+        self.v2 = v2
+        self.existeCaminhoDeV1aV2 = existeCaminhoDeV1aV2
+        self.visitada = False
+
 class Grafo:
     def __init__(self, vertices):
         self.vertices = vertices
@@ -31,6 +38,7 @@ def DFS_visit(G, vertice):
     vertice.f = G.tempo
     
 def DFS(G):
+    Arestas = []
     for vertice in G.vertices:
         vertice.color = "WHITE"
         vertice.pai = None
@@ -45,15 +53,13 @@ def DFS(G):
             if existe == 1:
                 vizinho = G.vertices[j]
                 if vertice == vizinho.pai:
+                    Arestas.append(Aresta(vertice, vizinho, True))
                     print('Aresta de Arvore:', vertice.nome ,'-->',vizinho.nome)
-                if vertice.d < vizinho.d and vertice.f > vizinho.f and vertice != vizinho.pai:
-                    print('Aresta de Avanco:', vertice.nome ,'-->',vizinho.nome)
-                elif vertice != vizinho.pai and not (vertice.d < vizinho.d and vertice.f > vizinho.f):
-                    if vertice.d > vizinho.d and vertice.f < vizinho.f:
-                        print('Aresta de Retorno:', vertice.nome ,'-->',vizinho.nome)
-                    else:
-                        print('Aresta de Cruzamento:', vertice.nome ,'-->',vizinho.nome)
+                else:
+                    Arestas.append(Aresta(vertice, vizinho, False))
+
             j=j+1
+    return Arestas
 
 def imprimirMatriz(matriz):
     for x in matriz:
@@ -75,5 +81,29 @@ if __name__ == "__main__":
     v7 = Vertice(7, [0,1,0,0,0,0,0,0])
 
     g = Grafo([v0,v1,v2,v3,v4,v5,v6,v7])
-    DFS(g)
+    print("Componentes:")
+    arestasDeArvore = DFS(g)
     
+    caminho = []
+    def existeCaminhoDeUaV(aresta):
+        if(aresta.existeCaminhoDeV1aV2 and aresta.visitada == False):
+            aresta.visitada = True
+            return True
+    def existeArestaQueComeçaComU(u,arestas):
+        for aresta in arestas:
+            if(aresta.v1 == u and aresta.visitada == False):
+                aresta.visitada = True
+                if(aresta.existeCaminhoDeV1aV2):
+                    caminho.append(aresta)
+                existeArestaQueComeçaComU(aresta.v2,arestas)
+                    
+                return True
+    aresta = arestasDeArvore[0]
+    if(existeCaminhoDeUaV(aresta)):
+        # caminho.append(aresta)
+        if(existeArestaQueComeçaComU(aresta.v2,arestasDeArvore)):
+            caminho.append(aresta)
+    for aresta in caminho:
+        print(aresta.v1.nome,"aponta pra",aresta.v2.nome)
+
+
